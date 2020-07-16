@@ -1,0 +1,23 @@
+#CLASS 0
+$CLASS = "Tools|MonWarg|Settings"
+
+#VAR monnum {-1} {} VAR
+#VAR MonWarg_target {} {} VAR
+
+#TR {^@MyNamePossessive monstrous warg snarls, and lunges} {
+trigger Y todo do warcry,shape @Gear_MonstrousWarg,shape @MonWarg_target
+} $CLASS
+
+#TR MonWarg_NearDeath {^@MyNamePossessive monstrous warg is near death.} {
+#T- MonWarg_NearDeath
+SysMsg Switching to next Monstrous Warg in 2 rounds!
+#ALA +4 {MonWarg_Next} MonWarg|Settings
+} $CLASS
+
+#TR {{"Ride what?|That poor mount is near death!"}} {MonWarg_next} $CLASS
+
+#TR {You killed} {MonWargoff} $CLASS
+
+#TR {Legolas Greenleaf falls to the ground mortally wounded. With his last} {MonWargoff} $CLASS
+BotOff MonWarg
+#CLASS 0
