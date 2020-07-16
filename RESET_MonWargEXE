@@ -2,14 +2,14 @@
 $CLASS = "Tools|MonWarg|EXE"
 
 #AL MonWarg {MonWarg_INIT
-#VAR MonWarg_target {%0} {} VAR
+#VAR MonWargTarget {%0} {} VAR
 #T+ MonWarg|settings
 r1
-#VAR monnum {-1} {} VAR
+#VAR MonNum {-1} {} VAR
 2drop potion
 ws
-kill @MonWarg_target
-trample @MonWarg_target
+kill @MonWargTarget
+trample @MonWargTarget
 Mon
 } $CLASS
 
@@ -17,25 +17,25 @@ Mon
 SysMsg Class Disabled: MonWarg} $CLASS
 //#AL klego {MonWarg legolas} $CLASS
 #AL MonWarg_INIT {#VAR monnum {-1} {-1} VAR
-#VAR curmon {@Gear_MonstrousWarg} {} VAR} $CLASS
+#VAR curmon {@MonstrousWarg} {} VAR} $CLASS
 #AL MonWarg_next {#ADD monnum 1
-#WHILE (%isnumber(%rightback(@Gear_MonstrousWarg,1))) {#VAR Gear_MonstrousWarg {%copy(@Gear_MonstrousWarg,1,%len(@Gear_MonstrousWarg)-1)} {} VAR}
-#VAR Gear_MonstrousWarg {%concat(@Gear_MonstrousWarg,@monnum)} {} VAR
-SysMsg Switching to Monstrous Warg @Gear_MonstrousWarg
-#VAR curmon {@Gear_MonstrousWarg} {} VAR
+#WHILE (%isnumber(%rightback(@MonstrousWarg,1))) {#VAR MonstrousWarg {%copy(@MonstrousWarg,1,%len(@MonstrousWarg)-1)} {} VAR}
+#VAR MonstrousWarg {%concat(@MonstrousWarg,@monnum)} {} VAR
+SysMsg Switching to Monstrous Warg @MonstrousWarg
+#VAR curmon {@MonstrousWarg} {} VAR
 #EXE {trample @MonWarg_target;Mon @MonWarg_target}
 #T+ MonWarg_neardeath
 } $CLASS
 
 #AL SetMon {
-#VAR Gear_MonstrousWarg {%lower(%0)} {} VAR
+#VAR MonstrousWarg {%lower(%0)} {} VAR
 } $CLASS
 
 #AL MoveMo {$origin=%roomnum
 $dest=""
 $numwargs=0
 $cmd=""
-$mon=@Gear_MonstrousWarg
+$mon=@MonstrousWarg
 $go_dest=""
 #IF (%0) {
 #SW (%1="r1") {$dest=@r1} (%1="r2") {$dest=@r2} {$dest=%1}
@@ -52,14 +52,14 @@ lead}
 
 
 #AL MonCall {
-$mon=@Gear_MonstrousWarg
+$mon=@MonstrousWarg
 $numwargs=%1
 mount call $mon
 #LOOP 1,$numwargs {mount call $mon%i}
 } $CLASS
 
 #AL LungeAll {
-$mon=@Gear_MonstrousWarg
+$mon=@MonstrousWarg
 $numwargs=5
 #IF (%0) {$numwargs=%0}
 do dismount,ride $mon,lunge,dismount
@@ -67,7 +67,7 @@ do dismount,ride $mon,lunge,dismount
 } $CLASS
 
 #AL KLego {
-$mon=@Gear_MonstrousWarg
+$mon=@MonstrousWarg
 $numwargs=5
 #IF (%0) {$numwargs=%0} {$numwargs=5}
 mm
