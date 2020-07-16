@@ -1,11 +1,11 @@
 #CLASS 0
 $CLASS = "Tools|MonWarg|Settings"
 
-#VAR monnum {-1} {} VAR
-#VAR MonWarg_target {} {} VAR
+#VAR MonNum {-1} {} VAR
+#VAR MonWargTarget {} {} VAR
 
 #TR {^@MyNamePossessive monstrous warg snarls, and lunges} {
-trigger Y todo do warcry,shape @Gear_MonstrousWarg,shape @MonWarg_target
+trigger Y todo do warcry,shape @MonstrousWarg,shape @MonWargTarget
 } $CLASS
 
 #TR MonWarg_NearDeath {^@MyNamePossessive monstrous warg is near death.} {
