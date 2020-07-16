@@ -1,0 +1,82 @@
+#CLASS 0
+$CLASS = "Tools|MonWarg|EXE"
+
+#AL MonWarg {MonWarg_INIT
+#VAR MonWarg_target {%0} {} VAR
+#T+ MonWarg|settings
+r1
+#VAR monnum {-1} {} VAR
+2drop potion
+ws
+kill @MonWarg_target
+trample @MonWarg_target
+Mon
+} $CLASS
+
+#AL MonWargoff {#T- MonWarg|settings
+SysMsg Class Disabled: MonWarg} $CLASS
+//#AL klego {MonWarg legolas} $CLASS
+#AL MonWarg_INIT {#VAR monnum {-1} {-1} VAR
+#VAR curmon {@Gear_MonstrousWarg} {} VAR} $CLASS
+#AL MonWarg_next {#ADD monnum 1
+#WHILE (%isnumber(%rightback(@Gear_MonstrousWarg,1))) {#VAR Gear_MonstrousWarg {%copy(@Gear_MonstrousWarg,1,%len(@Gear_MonstrousWarg)-1)} {} VAR}
+#VAR Gear_MonstrousWarg {%concat(@Gear_MonstrousWarg,@monnum)} {} VAR
+SysMsg Switching to Monstrous Warg @Gear_MonstrousWarg
+#VAR curmon {@Gear_MonstrousWarg} {} VAR
+#EXE {trample @MonWarg_target;Mon @MonWarg_target}
+#T+ MonWarg_neardeath
+} $CLASS
+
+#AL SetMon {
+#VAR Gear_MonstrousWarg {%lower(%0)} {} VAR
+} $CLASS
+
+#AL MoveMo {$origin=%roomnum
+$dest=""
+$numwargs=0
+$cmd=""
+$mon=@Gear_MonstrousWarg
+$go_dest=""
+#IF (%0) {
+#SW (%1="r1") {$dest=@r1} (%1="r2") {$dest=@r2} {$dest=%1}
+#IF (%2) {$numwargs=%2} {$numwargs=3}
+#SW (%ismember($dest,@Directions)) {$go_dest=$dest} ($dest) {$go_dest=%concat("#WALK ",$dest)}
+leadmon
+#EXE {$go_dest}
+lead
+#LOOP 1,$numwargs {#WALK $origin
+#EXE {%concat("lead ",$mon,%i)}
+#EXE {$go_dest}
+lead}
+}} $CLASS
+
+
+#AL MonCall {
+$mon=@Gear_MonstrousWarg
+$numwargs=%1
+mount call $mon
+#LOOP 1,$numwargs {mount call $mon%i}
+} $CLASS
+
+#AL LungeAll {
+$mon=@Gear_MonstrousWarg
+$numwargs=5
+#IF (%0) {$numwargs=%0}
+do dismount,ride $mon,lunge,dismount
+#LOOP 1,$numwargs {#ALA "Alarm_MonWarg" {+20} {#EXE {%concat("do dismount,ride ",$mon,%i,",lunge,dismount")}}}
+} $CLASS
+
+#AL KLego {
+$mon=@Gear_MonstrousWarg
+$numwargs=5
+#IF (%0) {$numwargs=%0} {$numwargs=5}
+mm
+do kill legolas,trample legolas
+do dismount,ride $mon,lunge legolas,dismount,ride @MyMount
+#LOOP 1,$numwargs {#WAIT 20000
+#EXE {%concat("do dismount,ride ",$mon,%i,",lunge legolas,dismount,ride ",@MyMount)}}
+} $CLASS
+
+#AL MonStop {#UNT Alarm_MonWarg
+BotOff MonWarg} $CLASS
+#CLASS 0
