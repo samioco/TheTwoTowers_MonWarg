@@ -1,4 +1,4 @@
-#CLASS 0
+//RESET_MonWargEXE#CLASS 0#AL RESET_MonWargEXE {#CLASS 0
 $CLASS = "Tools|MonWarg|EXE"
 
 #AL MonWarg {MonWarg_INIT
@@ -79,4 +79,4 @@ do dismount,ride $mon,lunge legolas,dismount,ride @MyMount
 
 #AL MonStop {#UNT Alarm_MonWarg
 BotOff MonWarg} $CLASS
-#CLASS 0
+#CLASS 0} _MonWarg#CLASS 0

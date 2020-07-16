@@ -1,4 +1,4 @@
-#CLASS 0
+//RESET_MonWargSettings#CLASS 0#AL RESET_MonWargSettings {#CLASS 0
 $CLASS = "Tools|MonWarg|Settings"
 
 #VAR MonNum {-1} {} VAR
@@ -20,4 +20,4 @@ SysMsg Switching to next Monstrous Warg in 2 rounds!
 
 #TR {Legolas Greenleaf falls to the ground mortally wounded. With his last} {MonWargoff} $CLASS
 BotOff MonWarg
-#CLASS 0
+#CLASS 0} _MonWarg#CLASS 0
